@@ -413,29 +413,3 @@ func Benchmark_withJson(b *testing.B) {
 		fmt.Printf("body = %s \n", body)
 	}
 }
-
-func TestUc(t *testing.T) {
-	params := url.Values{}
-	req := NewRequest("post", "http://yrd-owm-user-center-core.154.test.yirendai.com/api/register/userRegister.action")
-	params.Add("sysCode", "test")
-	params.Add("sign", "05a671c66aefea124cc08b76ea6d30bb")
-	params.Add("isCheckSmsCode", "false")
-	req.SetParams(params)
-	resp := req.Exec()
-	if err := resp.Error(); err != nil {
-		t.Errorf("req.exec error err= %s", err.Error())
-	}
-	if resp.StatusCode() != 200 {
-		t.Errorf("req.exec statuscode want = 200, got = %d", resp.StatusCode())
-	}
-
-	dumpRequest, _ := resp.DumpRequest(true)
-	fmt.Printf("dumpRequest %s \n", dumpRequest)
-	dumpResponse, _ := resp.DumpResponse(true)
-	fmt.Printf("dumpResponse %s \n", dumpResponse)
-	body, err := resp.ToString()
-	if err != nil {
-		t.Errorf("resp.ToString error, got = %s \n", err.Error())
-	}
-	fmt.Printf("body = %s \n", body)
-}
